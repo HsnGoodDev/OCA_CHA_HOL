@@ -5,18 +5,18 @@ on: push
 jobs:
   first-job:
     name: 'First Job'
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest' , 'macos-latest']
 
-    runs-on: ubuntu-latest
+    runs-on: ${{  matrix.os  }}
 
     steps:
-    - name: 'Set output value 1'
+    - name: 'Say Hello on ${{  matrix.os  }}'
       id: step1
       shell: bash
       run: |
-        STEP_1='This value comes from the step 1'
-
-        echo "::add-mask::$STEP_1"
-        echo "::set-output name=value1::$STEP_1"
+        echo "Say Hello on ${{  matrix.os  }}"
 
     - name: 'Set output value 2'
       id: step2
