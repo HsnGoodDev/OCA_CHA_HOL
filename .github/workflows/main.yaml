@@ -1,0 +1,16 @@
+name : 'My First GitHub Action'
+on : push
+
+jobs:
+  first-job :
+    name : 'First Job'
+    runs-on : 'ubuntu-latest'
+    steps:
+      - name: 'say Hello world on step 1'
+        shell: bash
+        run: |
+          echo "Hello World from Step 1"
+      - name: 'say Lorem Ipsum on step 2'
+        shell: pwsh
+        run: |
+          echo "Hello Lorem Ipsum on step 2"
