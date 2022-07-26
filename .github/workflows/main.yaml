@@ -2,9 +2,6 @@ name: 'My First GitHub Actions Workflow'
 
 on: push
 
-env:
-  WORKFLOW_LEVEL: 'This value comes from the workflow level'
-
 jobs:
   first-job:
     name: 'First Job'
@@ -12,18 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 'Set environment variable 1'
+    - name: 'Set output value 1'
+      id: step1
       shell: bash
       run: |
-        STEP_1='hello step1'
-        echo "::set-ouput name=step1 ::$STEP_1"
+        STEP_1='This value comes from the step 1'
 
-    - name: 'Set environment variable 2'
+        echo "::set-output name=value1::$STEP_1"
+
+    - name: 'Set output value 2'
+      id: step2
       shell: pwsh
       run: |
-        echo "STEP_2='This value comes from the step 2'" `
-          | Out-File -FilePath $env:GITHUB_ENV -Encoding utf-8 -Append
+        $STEP_2='This value comes from the step 2'
 
-    - name: 'Get environment variables'
+        echo "::set-output name=value2::$STEP_2"
+
+    - name: 'Get output values'
       shell: bash
       run: |
+        echo "STEP 1: ${{ steps.step1.outputs.value1 }}"
+        echo "STEP 2: ${{ steps.step2.outputs.value2 }}"
